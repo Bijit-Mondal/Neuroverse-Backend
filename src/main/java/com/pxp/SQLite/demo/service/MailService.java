@@ -5,26 +5,17 @@ import javax.mail.internet.MimeMessage;
 
 import com.pxp.SQLite.demo.entity.Participant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import com.pxp.SQLite.demo.model.User;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 /**
  *
- * @author Mukuljaiswal
+ * @author BijitMondal
  *
  */
 @Service
@@ -38,7 +29,6 @@ public class MailService {
     private JavaMailSender javaMailSender;
 
     /**
-     *
      * @param javaMailSender
      */
     @Autowired
@@ -50,7 +40,6 @@ public class MailService {
     private final ResourceLoader resourceLoader;
 
     /**
-     *
      * @param participant
      * @throws MailException
      */
@@ -70,28 +59,4 @@ public class MailService {
 
         javaMailSender.send(message);
     }
-    /**
-     * This function is used to send mail that contains a attachment.
-     *
-     * @param user
-     * @throws MailException
-     * @throws MessagingException
-     */
-    public void sendEmailWithAttachment(User user) throws MailException, MessagingException {
-
-        MimeMessage message = javaMailSender.createMimeMessage();
-
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setTo(user.getEmailAddress());
-        helper.setSubject("Testing Mail API with Attachment");
-        helper.setText("Please find the attached document below.");
-
-
-        ClassPathResource classPathResource = new ClassPathResource("Attachment.pdf");
-        helper.addAttachment(classPathResource.getFilename(), classPathResource);
-
-        javaMailSender.send(message);
-    }
-
 }
