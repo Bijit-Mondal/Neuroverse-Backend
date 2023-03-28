@@ -28,6 +28,7 @@ public class ParticipantController {
     private MailService notificationService;
 
     @PostMapping("/create")
+    @CrossOrigin(origins = "*")
     public ParticipantService.CreateParticipantResponse createParticipant(@RequestBody Participant participant){
         LocalDate currentDate = LocalDate.now();
         LocalDate endDate = LocalDate.parse("2023-03-25"); // change this to the date you want to restrict access until
@@ -46,6 +47,8 @@ public class ParticipantController {
         }
         return response;
     }
+
+
 
     @GetMapping("/excel-data")
     public void excelData(HttpServletResponse response) throws IOException {
