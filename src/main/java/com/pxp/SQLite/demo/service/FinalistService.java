@@ -18,6 +18,9 @@ public class FinalistService {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    @Autowired
+    private MailService notificationService;
+
 
     public class addFinalistResponse{
         private String message;
@@ -49,6 +52,7 @@ public class FinalistService {
                 Finalist finalist = new Finalist();
                 finalist.setParticipant(participant);
                 finalistRepository.save(finalist);
+                notificationService.sendFinalistEmail(finalist);
                 return new addFinalistResponse(participant.getFirstName()+" is now in finals");
             } else {
                 throw new RuntimeException(participant.getFirstName()+" already in finals");

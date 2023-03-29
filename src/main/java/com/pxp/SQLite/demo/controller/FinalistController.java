@@ -30,6 +30,7 @@ public class FinalistController {
     @PostMapping("/addFinalist")
     public String addFinalist(@RequestParam("email") String email) {
         Participant participant = finalistService.getParticipantByEmail(email);
+
         if (participant == null) {
             return "redirect:/non-finalist/show";
         }
