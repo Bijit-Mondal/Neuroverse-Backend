@@ -19,4 +19,7 @@ public interface FinalistRepository extends JpaRepository<Finalist, Integer> {
 
     List<Finalist> findByParticipantEmail(String email);
 
+    @Query("select max(p.id) from Finalist p")
+    public Integer findMaxId();
+
 }

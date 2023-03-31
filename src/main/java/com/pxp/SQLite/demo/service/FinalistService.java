@@ -50,6 +50,7 @@ public class FinalistService {
         try {
             if(!finalistRepository.existsByEmail(participant.getEmail())) {
                 Finalist finalist = new Finalist();
+                finalist.setId(null == participantRepository.findMaxId() ? 0 :participantRepository.findMaxId() + 1);
                 finalist.setParticipant(participant);
                 finalistRepository.save(finalist);
                 notificationService.sendFinalistEmail(finalist);
